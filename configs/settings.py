@@ -42,16 +42,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_spectacular',
+    'configs',
+    'googleApp',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Data Analysis API',
-    'DESCRIPTION': 'API for social media trend analisis data',
+    'TITLE': 'Social Media Trend Analaysis',
+    'DESCRIPTION': 'Social Media Trend Analaysis',
     'VERSION': '1.0.0',
+    'AUTHOR': 'Raymond Redington',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 DATABASES = {
