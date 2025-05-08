@@ -50,7 +50,7 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Data Analysis API',
-    'DESCRIPTION': 'API untuk scraping dan analisis data',
+    'DESCRIPTION': 'API for social media trend analisis data',
     'VERSION': '1.0.0',
 }
 
@@ -73,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'configs.middleware.custom_error.Middleware',
 ]
 
 ROOT_URLCONF = 'configs.urls'
@@ -80,7 +81,9 @@ ROOT_URLCONF = 'configs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        "DIRS": [
+            os.path.join(BASE_DIR, "configs", "templates"),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,6 +94,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'configs.wsgi.application'
 
