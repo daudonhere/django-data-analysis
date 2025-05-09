@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'configs',
+    'economyApp',
     'financeApp',
 ]
 
@@ -50,13 +51,20 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
-
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Social Media Trend Analysis',
-    'DESCRIPTION': 'social media trend analysis from various categories for discussion reference in your content',
-    'VERSION': '1.0.0',
-    'AUTHOR': 'Raymond Redington',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Internet Trend Analytics API",
+    "DESCRIPTION": "Internet trend analytic from various categories for your content reference.",
+    "VERSION": "0.0.1",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "CONTACT": {
+        "name": "Daud Yusup",
+        "url": "https://github.com/daudonhere",
+        "email": "hellodadedaud@gmail.com",
+    },
+    "LICENSE": {
+        "name": "GPL-3.0 License",
+        "url": "https://www.gnu.org/licenses/gpl-3.0.html",
+    },
 }
 
 DATABASES = {

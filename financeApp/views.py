@@ -16,7 +16,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
     @extend_schema(
         summary="Most Searched Stocks",
         description="Returns a list of the most searched stocks",
-        tags=["Economics & Finance"],
+        tags=["Economy & Finances"],
         responses={
             200: OpenApiResponse(
                 response=StockDataSerializer(many=True),
@@ -41,7 +41,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
     @extend_schema(
         summary="Market Highest Volume",
         description="Returns a list of stocks with highest trading volume",
-        tags=["Economics & Finance"],
+        tags=["Economy & Finances"],
         responses={
             200: OpenApiResponse(
                 response=MarketActiveStockSerializer(many=True),
@@ -67,7 +67,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
     @extend_schema(
         summary="Most Sector Performance",
         description="Returns performance change for each sector",
-        tags=["Economics & Finance"],
+        tags=["Economy & Finances"],
         responses={
             200: OpenApiResponse(
                 response=SectorPerformanceSerializer(many=True),
@@ -82,7 +82,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
         try:
             response = requests.get(url)
             response.raise_for_status()
-            raw_data = response.json().get("sectorPerformance", [])
+            raw_data = response.json()
 
             serializer = SectorPerformanceSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
@@ -90,11 +90,12 @@ class FinancialDataViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except requests.RequestException as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         
     @extend_schema(
         summary="Most Traded Cryptocurrencies",
         description="Returns a list of most traded cryptocurrency",
-        tags=["Economics & Finance"],
+        tags=["Economy & Finances"],
         responses={
             200: OpenApiResponse(
                 response=CryptoSymbolSerializer(many=True),
@@ -120,7 +121,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
     @extend_schema(
         summary="Most Stocks Downtrend",
         description="Returns a list of stocks with the highest negative price changes",
-        tags=["Economics & Finance"],
+        tags=["Economy & Finances"],
         responses={
             200: OpenApiResponse(
                 response=TopLoserStockSerializer(many=True),

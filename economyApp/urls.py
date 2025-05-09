@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from financeApp.views import FinancialDataViewSet
+from economyApp.views import AnalyticSentimentViewSet
 
 router = DefaultRouter(trailing_slash=False)
 
-router.register(r'finance', FinancialDataViewSet, basename='finance')
+router.register(r'economy', AnalyticSentimentViewSet, basename='economy')
 
-financeApp_urlpatterns = [
+economyApp_urlpatterns = [
     path('', include(router.urls)),
 ]
