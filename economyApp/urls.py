@@ -1,10 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from googleApp.views import FinancialDataViewSet
+from economyApp.views import AnalyticSentimentViewSet
 
 router = DefaultRouter(trailing_slash=False)
-router.register(r'financial-data', FinancialDataViewSet, basename='financial-data')
 
-googleApp_urlpatterns = [
+router.register(r'economy', AnalyticSentimentViewSet, basename='economy')
+
+economyApp_urlpatterns = [
     path('', include(router.urls)),
 ]
