@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'configs',
-    'googleApp',
+    'financeApp',
 ]
 
 REST_FRAMEWORK = {
@@ -52,8 +52,8 @@ REST_FRAMEWORK = {
 
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Social Media Trend Analaysis',
-    'DESCRIPTION': 'Social Media Trend Analaysis',
+    'TITLE': 'Social Media Trend Analysis',
+    'DESCRIPTION': 'social media trend analysis from various categories for discussion reference in your content',
     'VERSION': '1.0.0',
     'AUTHOR': 'Raymond Redington',
     'SERVE_INCLUDE_SCHEMA': False,

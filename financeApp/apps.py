@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
-
-class GoogleappConfig(AppConfig):
+class FinanceappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'googleApp'
+    name = 'financeApp'
