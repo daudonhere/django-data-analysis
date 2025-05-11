@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'configs',
     'economyApp',
     'financeApp',
+    'googleApp'
 ]
 
 REST_FRAMEWORK = {
@@ -54,7 +55,7 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     "TITLE": "Internet Trend Analytics API",
     "DESCRIPTION": "Internet trend analytic from various categories for your content reference.",
-    "VERSION": "0.0.1",
+    "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "CONTACT": {
         "name": "Daud Yusup",
