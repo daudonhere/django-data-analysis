@@ -19,14 +19,14 @@ class SectorPerformanceSerializer(serializers.Serializer):
     sector = serializers.CharField()
     changesPercentage = serializers.CharField()
     
-class CryptoSymbolSerializer(serializers.Serializer):
+class CryptoDataSerializer(serializers.Serializer):
     symbol = serializers.CharField()
     name = serializers.CharField()
     currency = serializers.CharField()
     stockExchange = serializers.CharField()
     exchangeShortName = serializers.CharField()
     
-class TopLoserStockSerializer(serializers.Serializer):
+class DowntrendStockSerializer(serializers.Serializer):
     symbol = serializers.CharField()
     name = serializers.CharField()
     change = serializers.FloatField()

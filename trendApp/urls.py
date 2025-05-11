@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from googleApp.views import GoogleTrendViewSet
+from trendApp.views import SearchTrendViewSet
 
 router = DefaultRouter(trailing_slash=False)
 
-router.register(r'google', GoogleTrendViewSet, basename='google')
+router.register(r'finance', SearchTrendViewSet, basename='finance')
 
-googleApp_urlpatterns = [
+trendApp_urlpatterns = [
     path('', include(router.urls)),
 ]

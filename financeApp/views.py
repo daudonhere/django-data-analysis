@@ -2,7 +2,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, OpenApiResponse
-from financeApp.serializers import StockDataSerializer, MarketActiveStockSerializer, SectorPerformanceSerializer, CryptoSymbolSerializer, TopLoserStockSerializer
+from financeApp.serializers import StockDataSerializer, MarketActiveStockSerializer, SectorPerformanceSerializer, CryptoDataSerializer, DowntrendStockSerializer
 import os
 import requests
 from dotenv import load_dotenv
@@ -98,7 +98,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
         tags=["Economy & Finances"],
         responses={
             200: OpenApiResponse(
-                response=CryptoSymbolSerializer(many=True),
+                response=CryptoDataSerializer(many=True),
                 description="List of available crypto assets",
             ),
             500: OpenApiResponse(description="Internal Server Error"),
@@ -112,7 +112,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
             response.raise_for_status()
             raw_data = response.json()[:100]
 
-            serializer = CryptoSymbolSerializer(data=raw_data, many=True)
+            serializer = CryptoDataSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
 
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -124,7 +124,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
         tags=["Economy & Finances"],
         responses={
             200: OpenApiResponse(
-                response=TopLoserStockSerializer(many=True),
+                response=DowntrendStockSerializer(many=True),
                 description="List of top downtrend stocks",
             ),
             500: OpenApiResponse(description="Internal Server Error"),
@@ -138,7 +138,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
             response.raise_for_status()
             raw_data = response.json()[:100]
 
-            serializer = TopLoserStockSerializer(data=raw_data, many=True)
+            serializer = DowntrendStockSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
 
             return Response(serializer.data, status=status.HTTP_200_OK)
