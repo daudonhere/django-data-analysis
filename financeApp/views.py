@@ -1,8 +1,14 @@
 from rest_framework import status, viewsets
-from rest_framework.response import Response
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, OpenApiResponse
-from financeApp.serializers import StockDataSerializer, MarketActiveStockSerializer, SectorPerformanceSerializer, CryptoDataSerializer, DowntrendStockSerializer
+from configs.utils import success_response, error_response
+from financeApp.serializers import (
+    StockDataSerializer,
+    MarketActiveStockSerializer,
+    SectorPerformanceSerializer,
+    CryptoDataSerializer,
+    DowntrendStockSerializer,
+)
 import os
 import requests
 from dotenv import load_dotenv
@@ -18,10 +24,7 @@ class FinancialDataViewSet(viewsets.ViewSet):
         description="Returns a list of the most searched stocks",
         tags=["Economy & Finances"],
         responses={
-            200: OpenApiResponse(
-                response=StockDataSerializer(many=True),
-                description="Returns a list of the most searched stocks",
-            ),
+            200: OpenApiResponse(response=StockDataSerializer(many=True)),
             500: OpenApiResponse(description="Internal Server Error"),
         },
     )
@@ -35,18 +38,16 @@ class FinancialDataViewSet(viewsets.ViewSet):
             serializer = StockDataSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
 
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(serializer.data, "Stock list fetched successfully.")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @extend_schema(
         summary="Market Highest Volume",
         description="Returns a list of stocks with highest trading volume",
         tags=["Economy & Finances"],
         responses={
-            200: OpenApiResponse(
-                response=MarketActiveStockSerializer(many=True),
-                description="List of high volume stocks",
-            ),
+            200: OpenApiResponse(response=MarketActiveStockSerializer(many=True)),
             500: OpenApiResponse(description="Internal Server Error"),
         },
     )
@@ -61,18 +62,16 @@ class FinancialDataViewSet(viewsets.ViewSet):
             serializer = MarketActiveStockSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
 
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(serializer.data, "High volume stocks fetched successfully.")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @extend_schema(
         summary="Most Sector Performance",
         description="Returns performance change for each sector",
         tags=["Economy & Finances"],
         responses={
-            200: OpenApiResponse(
-                response=SectorPerformanceSerializer(many=True),
-                description="List of sector performance data",
-            ),
+            200: OpenApiResponse(response=SectorPerformanceSerializer(many=True)),
             500: OpenApiResponse(description="Internal Server Error"),
         },
     )
@@ -87,20 +86,16 @@ class FinancialDataViewSet(viewsets.ViewSet):
             serializer = SectorPerformanceSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
 
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(serializer.data, "Sector performance data retrieved.")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        
     @extend_schema(
         summary="Most Traded Cryptocurrencies",
         description="Returns a list of most traded cryptocurrency",
         tags=["Economy & Finances"],
         responses={
-            200: OpenApiResponse(
-                response=CryptoDataSerializer(many=True),
-                description="List of available crypto assets",
-            ),
+            200: OpenApiResponse(response=CryptoDataSerializer(many=True)),
             500: OpenApiResponse(description="Internal Server Error"),
         },
     )
@@ -115,18 +110,16 @@ class FinancialDataViewSet(viewsets.ViewSet):
             serializer = CryptoDataSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
 
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(serializer.data, "Cryptocurrency data fetched.")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @extend_schema(
         summary="Most Stocks Downtrend",
         description="Returns a list of stocks with the highest negative price changes",
         tags=["Economy & Finances"],
         responses={
-            200: OpenApiResponse(
-                response=DowntrendStockSerializer(many=True),
-                description="List of top downtrend stocks",
-            ),
+            200: OpenApiResponse(response=DowntrendStockSerializer(many=True)),
             500: OpenApiResponse(description="Internal Server Error"),
         },
     )
@@ -141,7 +134,6 @@ class FinancialDataViewSet(viewsets.ViewSet):
             serializer = DowntrendStockSerializer(data=raw_data, many=True)
             serializer.is_valid(raise_exception=True)
 
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(serializer.data, "Top downtrend stocks retrieved.")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)

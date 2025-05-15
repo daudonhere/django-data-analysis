@@ -1,9 +1,9 @@
 from rest_framework import status, viewsets
-from rest_framework.response import Response
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiParameter
 from pytrends.request import TrendReq
 from trendApp.serializers import TrendingTopicSerializer
+from configs.utils import success_response, error_response  # Sesuaikan path ini dengan struktur project kamu
 
 class SearchTrendViewSet(viewsets.ViewSet):
     pytrends = TrendReq(hl='en-US', tz=360)
@@ -26,7 +26,7 @@ class SearchTrendViewSet(viewsets.ViewSet):
     def trending_topic(self, request):
         query = request.query_params.get("query")
         if not query:
-            return Response({"error": "Query is required."}, status=400)
+            return error_response(message="Query parameter is required.", code=status.HTTP_400_BAD_REQUEST)
 
         try:
             category = 7
@@ -45,7 +45,7 @@ class SearchTrendViewSet(viewsets.ViewSet):
             df = self.pytrends.interest_over_time()
 
             if df.empty or query not in df.columns:
-                return Response({"error": f"There is no data for '{query}'."}, status=204)
+                return error_response(message=f"There is no data for '{query}'.", code=status.HTTP_204_NO_CONTENT)
 
             trend_data = []
             max_value = df[query].max()
@@ -64,7 +64,7 @@ class SearchTrendViewSet(viewsets.ViewSet):
 
             serializer = TrendingTopicSerializer(data=trend_data, many=True)
             serializer.is_valid(raise_exception=True)
-            return Response(serializer.data, status=200)
+            return success_response(data=serializer.data, message="Trending data fetched successfully")
 
         except Exception as e:
-            return Response({"error": f"Exception: {str(e)}"}, status=500)
+            return error_response(message=f"Exception: {str(e)}", code=status.HTTP_500_INTERNAL_SERVER_ERROR)
