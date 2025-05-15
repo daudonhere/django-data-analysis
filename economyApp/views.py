@@ -1,10 +1,11 @@
 from rest_framework import status, viewsets
-from rest_framework.response import Response
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 import os
 import requests
 from dotenv import load_dotenv
+from rest_framework.response import Response
+from configs.utils import success_response, error_response  # Pastikan path-nya sesuai struktur project kamu
 
 load_dotenv()
 
@@ -28,11 +29,10 @@ class AnalyticSentimentViewSet(viewsets.ViewSet):
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
-            return Response(data, status=status.HTTP_200_OK)
+            return success_response(data=data, message="Fiscal economy data fetched successfully")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @extend_schema(
         summary="Data Monetary Economics and Public Responses",
         description="Returns monetary economic data analysis.",
@@ -49,9 +49,10 @@ class AnalyticSentimentViewSet(viewsets.ViewSet):
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
-            return Response(data, status=status.HTTP_200_OK)
+            return success_response(data=data, message="Monetary economy data fetched successfully")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @extend_schema(
         summary="Most Trend About Macro Economics",
         description="Return macro economic data analysis and public response",
@@ -68,6 +69,6 @@ class AnalyticSentimentViewSet(viewsets.ViewSet):
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
-            return Response(data, status=status.HTTP_200_OK)
+            return success_response(data=data, message="Macro economy data fetched successfully")
         except requests.RequestException as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return error_response(message=str(e), code=status.HTTP_500_INTERNAL_SERVER_ERROR)
