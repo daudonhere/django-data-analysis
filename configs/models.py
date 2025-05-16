@@ -1,13 +1,13 @@
 from django.db import models
-from django.utils import timezone
-import uuid
 
 class IngestionData(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     content = models.JSONField()
-    source = models.TextField()
-    createdAt = models.DateTimeField(default=timezone.now)
+    source = models.CharField(max_length=255)
+    createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'tb_ingestion_data'
+
     def __str__(self):
-        return f"Ingested from {self.source} at {self.createdAt}"
+        return f"Ingestion from {self.source} at {self.createdAt}"
