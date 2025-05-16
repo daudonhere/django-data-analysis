@@ -4,8 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse
 import os
 import requests
 from dotenv import load_dotenv
-from rest_framework.response import Response
-from configs.utils import success_response, error_response  # Pastikan path-nya sesuai struktur project kamu
+from configs.utils import success_response, error_response
 
 load_dotenv()
 
@@ -16,9 +15,9 @@ class AnalyticSentimentViewSet(viewsets.ViewSet):
     @extend_schema(
         summary="Most Trend Topics About Fiscal Economics Policy",
         description="Returns fiscal economic data analysis.",
-        tags=["Economy & Finances"],
+        tags=["Data Ingestion"],
         responses={
-            200: OpenApiResponse(description="Success Response."),
+            200: OpenApiResponse(description="Success Response"),
             500: OpenApiResponse(description="Internal Server Error")
         }
     )
@@ -36,7 +35,7 @@ class AnalyticSentimentViewSet(viewsets.ViewSet):
     @extend_schema(
         summary="Data Monetary Economics and Public Responses",
         description="Returns monetary economic data analysis.",
-        tags=["Economy & Finances"],
+        tags=["Data Ingestion"],
         responses={
             200: OpenApiResponse(description="Success Response"),
             500: OpenApiResponse(description="Internal Server Error")
@@ -56,7 +55,7 @@ class AnalyticSentimentViewSet(viewsets.ViewSet):
     @extend_schema(
         summary="Most Trend About Macro Economics",
         description="Return macro economic data analysis and public response",
-        tags=["Economy & Finances"],
+        tags=["Data Ingestion"],
         responses={
             200: OpenApiResponse(description="Success Response"),
             500: OpenApiResponse(description="Internal Server Error")
